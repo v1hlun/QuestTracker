@@ -16,7 +16,8 @@ public class CreateDB {
     private void createTables(){
         String createUsersTable = "CREATE TABLE IF NOT EXISTS users("
                 + "user_id BIGSERIAL PRIMARY KEY, "
-                + "name VARCHAR(255) NOT NULL"
+                + "name VARCHAR(255) NOT NULL, "
+                + "email VARCHAR(255) NOT NULL"
                 + ");";
 
         jdbcTemplate.execute(createUsersTable);
