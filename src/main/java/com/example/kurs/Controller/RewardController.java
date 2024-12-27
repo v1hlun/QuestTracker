@@ -1,20 +1,22 @@
 package com.example.kurs.Controller;
 
+import com.example.kurs.Service.QuestService;
 import com.example.kurs.Service.RewardService;
+import com.example.kurs.entyty.Quest;
 import com.example.kurs.entyty.Reward;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/rewards")
 public class RewardController {
 
     private final RewardService rewardService;
+    private final QuestService questService;
 
-    public RewardController(RewardService rewardService) {
-        this.rewardService = rewardService;
-    }
 
     @GetMapping
     public List<Reward> getAllRewards() {
@@ -27,7 +29,9 @@ public class RewardController {
     }
 
     @PostMapping
-    public Reward createReward(@RequestBody Reward reward) {
+    public Reward createReward(@RequestBody Reward reward,@RequestParam Long questId) {
+        Quest quest = questService.getQuestById(questId);
+        reward.getQuests().add(quest);
         return rewardService.createReward(reward);
     }
 
