@@ -19,4 +19,10 @@ public class Player {
     private Long playerId;
 
     private String  playerName;
+
+    @Column(nullable = false,unique = true)
+    private String username;
+
+    @Column(nullable = false,unique = true)
+    private String password;
 }
