@@ -1,5 +1,6 @@
 package com.example.kurs.entyty;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,5 +27,6 @@ public class Reward {
     private String rewardDescription;
 
     @OneToMany(mappedBy = "reward")
+    @JsonManagedReference
     private List<Quest> quests = new ArrayList<>();
 }

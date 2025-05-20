@@ -1,5 +1,6 @@
 package com.example.kurs.entyty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,5 +24,6 @@ public class Quest {
 
     @ManyToOne
     @JoinColumn(name = "rewardId")
+    @JsonBackReference
     private Reward reward;
 }

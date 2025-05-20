@@ -2,8 +2,10 @@ package com.example.kurs.Controller;
 
 import com.example.kurs.Service.QuestService;
 import com.example.kurs.Service.RewardService;
+import com.example.kurs.dto.RewardDTO;
 import com.example.kurs.entyty.Quest;
 import com.example.kurs.entyty.Reward;
+import com.example.kurs.util.DTOConverter;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,26 +21,29 @@ public class RewardController {
 
 
     @GetMapping
-    public List<Reward> getAllRewards() {
-        return rewardService.getAllRewards();
+    public List<RewardDTO> getAllRewards() {
+        List<Reward> rewards = rewardService.getAllRewards();
+        return DTOConverter.convertToRewardDTOList(rewards);
     }
 
     @GetMapping("/{id}")
-    public Reward getRewardById(@PathVariable Long id) {
-        return rewardService.getRewardById(id);
+    public RewardDTO getRewardById(@PathVariable Long id) {
+        Reward reward = rewardService.getRewardById(id);
+        return DTOConverter.convertToRewardDTO(reward);
     }
 
     @PostMapping
-    public Reward createReward(@RequestBody Reward reward,@RequestParam Long questId) {
+    public RewardDTO createReward(@RequestBody Reward reward, @RequestParam Long questId) {
         Quest quest = questService.getQuestById(questId);
         reward.getQuests().add(quest);
-        return rewardService.createReward(reward);
+        Reward createdReward = rewardService.createReward(reward);
+        return DTOConverter.convertToRewardDTO(createdReward);
     }
 
     @PutMapping("/{id}")
-    public Reward updateReward(@PathVariable Long id, @RequestBody Reward rewardDetails) {
-        return rewardService.updateReward(id, rewardDetails);
+    public RewardDTO updateReward(@PathVariable Long id, @RequestBody Reward rewardDetails) {
+        Reward updatedReward = rewardService.updateReward(id, rewardDetails);
+        return DTOConverter.convertToRewardDTO(updatedReward);
     }
-
 }
 
