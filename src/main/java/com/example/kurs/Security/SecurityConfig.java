@@ -36,7 +36,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/players/**").permitAll()        // Allow access to player info
                         .requestMatchers("/api/quests/**").permitAll()         // Allow access to all quests
                         .requestMatchers("/api/playersQuests/**").permitAll()  // Allow access to player quests
-                        .requestMatchers("/api/rewards/**").permitAll()        // Allow access to rewards
+                        .requestMatchers("/api/rewards/**").permitAll()
+                        .requestMatchers("/swagger-ui/", "/v3/api-docs/").permitAll() //Allow access to rewards
                         // All other endpoints require authentication
                         .anyRequest().authenticated()
                 )

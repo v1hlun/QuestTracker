@@ -9,4 +9,9 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
     boolean existsByUsername(String username);
 
     Optional<Player> findByUsername(String username);
+
+
+    Optional<Player> findByPlayerId(Long playerId);
+
+    Optional<Player> findByUsernameAndPlayerId(String username, Long playerId);
 }

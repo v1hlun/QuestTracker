@@ -10,7 +10,9 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/players")
-@CrossOrigin(origins = "*")  // Allow cross-origin requests
+@CrossOrigin(origins = "http://localhost:5174", allowCredentials = "true",
+        allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+        RequestMethod.DELETE, RequestMethod.OPTIONS})  // Allow cross-origin requests
 public class PlayerController {
 
     private final PlayerService playerService;
@@ -69,5 +71,10 @@ public class PlayerController {
     @GetMapping("/{id}/followers")
     public List<Player> getFollowers(@PathVariable Long id) {
         return playerService.getFollowers(id);
+    }
+
+    @GetMapping("/by-username/{username}")
+    public ResponseEntity<Player> getPlayerByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(playerService.getPlayerByUsername(username));
     }
 }

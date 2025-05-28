@@ -115,4 +115,9 @@ public class PlayerService {
 
         return playerRepository.findAllById(followerIds);
     }
+
+    public Player getPlayerByUsername(String username) {
+        return playerRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Player not found with username: " + username));
+    }
 }

@@ -68,8 +68,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
-        // Don't apply filter to auth endpoints or OPTIONS requests (for CORS preflight)
-        return path.startsWith("/api/auth/") || request.getMethod().equals("OPTIONS");
+        // Don't apply filter to auth endpoints, swagger, openapi or OPTIONS requests (for CORS preflight)
+        return path.startsWith("/api/auth/")
+                || path.startsWith("/swagger-ui")
+                || path.equals("/swagger-ui.html")
+                || path.startsWith("/v3/api-docs")
+                || path.startsWith("/swagger-resources")
+                || path.startsWith("/webjars/")
+                || request.getMethod().equals("OPTIONS");
     }
 }
 
