@@ -19,12 +19,12 @@ public class PlayersQuest {
     private Long playerQuestId;
 
     @ManyToOne
-    @JoinColumn(name = "playerId")
-    private Player playerId;
+    @JoinColumn(name = "player_id")
+    private Player player;
 
     @ManyToOne
-    @JoinColumn(name = "questId")
-    private Quest questId;
+    @JoinColumn(name = "quest_id")
+    private Quest quest;
 
     @Enumerated(EnumType.STRING)
     private QuestStatus status;

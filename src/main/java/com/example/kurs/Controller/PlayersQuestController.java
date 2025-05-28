@@ -31,6 +31,24 @@ public class PlayersQuestController {
         return playersQuestService.createPlayersQuest(playersQuest);
     }
 
+
+    @GetMapping("/player/{playerId}")
+    public List<PlayersQuest> getQuestsByPlayerId(@PathVariable Long playerId) {
+        return playersQuestService.findByPlayerId(playerId);
+    }
+
+    @GetMapping("/player/{playerId}/status/{status}")
+    public List<PlayersQuest> getQuestsByPlayerIdAndStatus(
+            @PathVariable Long playerId,
+            @PathVariable String status) {
+        return playersQuestService.findByPlayerIdAndStatus(playerId, status);
+    }
+
+    @GetMapping("/quest/{questId}")
+    public List<PlayersQuest> getPlayersByQuestId(@PathVariable Long questId) {
+        return playersQuestService.findByQuestId(questId);
+    }
+
     @PutMapping("/{id}")
     public PlayersQuest updatePlayersQuest(@PathVariable Long id, @RequestBody PlayersQuest updatedPlayersQuest) {
         return playersQuestService.updatePlayersQuest(id, updatedPlayersQuest);

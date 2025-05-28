@@ -24,14 +24,26 @@ public class PlayersQuestService {
                 .orElseThrow(() -> new RuntimeException("PlayersQuest not found with id: " + id));
     }
 
+    public List<PlayersQuest> findByPlayerId(Long playerId) {
+        return playersQuestRepository.findByPlayerId(playerId);
+    }
+
+    public List<PlayersQuest> findByQuestId(Long questId) {
+        return playersQuestRepository.findByQuestId(questId);
+    }
+
+    public List<PlayersQuest> findByPlayerIdAndStatus(Long playerId, String status) {
+        return playersQuestRepository.findByPlayerIdAndStatus(playerId, status);
+    }
+
     public PlayersQuest createPlayersQuest(PlayersQuest playersQuest) {
         return playersQuestRepository.save(playersQuest);
     }
 
     public PlayersQuest updatePlayersQuest(Long id, PlayersQuest updatedPlayersQuest) {
         PlayersQuest existingPlayersQuest = getPlayersQuestById(id);
-        existingPlayersQuest.setPlayerId(updatedPlayersQuest.getPlayerId());
-        existingPlayersQuest.setQuestId(updatedPlayersQuest.getQuestId());
+        existingPlayersQuest.setPlayer(updatedPlayersQuest.getPlayer());
+        existingPlayersQuest.setQuest(updatedPlayersQuest.getQuest());
         existingPlayersQuest.setStatus(updatedPlayersQuest.getStatus());
         return playersQuestRepository.save(existingPlayersQuest);
     }

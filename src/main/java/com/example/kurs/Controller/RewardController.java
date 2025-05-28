@@ -33,9 +33,11 @@ public class RewardController {
     }
 
     @PostMapping
-    public RewardDTO createReward(@RequestBody Reward reward, @RequestParam Long questId) {
-        Quest quest = questService.getQuestById(questId);
-        reward.getQuests().add(quest);
+    public RewardDTO createReward(@RequestBody Reward reward, @RequestParam(required = false) Long questId) {
+        if (questId != null) {
+            Quest quest = questService.getQuestById(questId);
+            reward.getQuests().add(quest);
+        }
         Reward createdReward = rewardService.createReward(reward);
         return DTOConverter.convertToRewardDTO(createdReward);
     }
@@ -45,5 +47,7 @@ public class RewardController {
         Reward updatedReward = rewardService.updateReward(id, rewardDetails);
         return DTOConverter.convertToRewardDTO(updatedReward);
     }
+
+    
 }
 
