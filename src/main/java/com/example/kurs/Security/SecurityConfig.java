@@ -28,8 +28,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors().and() // Enable CORS
-                .csrf().disable()
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         // Public endpoints
                         .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
@@ -37,7 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/quests/**").permitAll()         // Allow access to all quests
                         .requestMatchers("/api/playersQuests/**").permitAll()  // Allow access to player quests
                         .requestMatchers("/api/rewards/**").permitAll()
-                        .requestMatchers("/swagger-ui/", "/v3/api-docs/").permitAll() //Allow access to rewards
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() //Allow access to rewards
                         // All other endpoints require authentication
                         .anyRequest().authenticated()
                 )
